@@ -16,6 +16,9 @@
 
     <ItemGroup>
       <None Remove=".gitignore" />
+      <None Remove="README.md" />
+      <None Remove="execute.ps1" />
+      <None Remove="execute.sh" />
     </ItemGroup>
 
 </Project>
