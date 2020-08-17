@@ -35,7 +35,7 @@ namespace KenBonny.GildedRoseKata
 
                         if (item.Is(BackstageConcertPasses))
                         {
-                            if (item.SellIn < 11)
+                            if (item.SellIn <= 10)
                             {
                                 if (item.QualityIsBelowMax())
                                 {
@@ -43,7 +43,7 @@ namespace KenBonny.GildedRoseKata
                                 }
                             }
 
-                            if (item.SellIn < 6)
+                            if (item.SellIn <= 5)
                             {
                                 if (item.QualityIsBelowMax())
                                 {
