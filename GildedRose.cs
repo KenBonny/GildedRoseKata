@@ -43,6 +43,12 @@ namespace KenBonny.GildedRoseKata
                 }
                 else if (item.Is(BackstageConcertPasses))
                 {
+                    if (item.IsExpired())
+                    {
+                        item.Quality = 0;
+                        continue;
+                    }
+
                     if (item.SellInLessThan(FiveDays))
                     {
                         item.Quality += TripleQualityIncrease;
@@ -54,11 +60,6 @@ namespace KenBonny.GildedRoseKata
                     else
                     {
                         item.Quality++;
-                    }
-
-                    if (item.IsExpired())
-                    {
-                        item.Quality = 0;
                     }
                 }
                 else
