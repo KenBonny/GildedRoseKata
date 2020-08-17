@@ -41,17 +41,14 @@ namespace KenBonny.GildedRoseKata
                 {
                     item.Quality++;
 
-                    if (item.Is(BackstageConcertPasses))
+                    if (item.SellInLessThan(TenDays))
                     {
-                        if (item.SellInLessThan(TenDays))
-                        {
-                            item.Quality++;
-                        }
+                        item.Quality++;
+                    }
 
-                        if (item.SellInLessThan(FiveDays))
-                        {
-                            item.Quality++;
-                        }
+                    if (item.SellInLessThan(FiveDays))
+                    {
+                        item.Quality++;
                     }
                 }
                 else
