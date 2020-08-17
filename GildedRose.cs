@@ -11,8 +11,9 @@ namespace KenBonny.GildedRoseKata
         private const int FiveDays = 5;
         private const int MaxQuality = 50;
         private const int MinQuality = 0;
-        private const int DoubleQualityIncrease = 2;
-        private const int TripleQualityIncrease = 3;
+        private const int NormalCoefficient = 1;
+        private const int DoubleCoefficient = 2;
+        private const int TripleCoefficient = 3;
         private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
@@ -30,16 +31,10 @@ namespace KenBonny.GildedRoseKata
 
                 item.SellIn--;
 
+                var coefficient = item.IsExpired() ? DoubleCoefficient : NormalCoefficient;
                 if (item.Is(AgedBrie))
                 {
-                    if (item.IsExpired())
-                    {
-                        item.Quality += DoubleQualityIncrease;
-                    }
-                    else
-                    {
-                        item.Quality++;
-                    }
+                    coefficient *= -1;
                 }
                 else if (item.Is(BackstageConcertPasses))
                 {
@@ -51,28 +46,21 @@ namespace KenBonny.GildedRoseKata
 
                     if (item.SellInLessThan(FiveDays))
                     {
-                        item.Quality += TripleQualityIncrease;
+                        coefficient = TripleCoefficient;
                     }
                     else if (item.SellInLessThan(TenDays))
                     {
-                        item.Quality += DoubleQualityIncrease;
+                        coefficient = DoubleCoefficient;
                     }
                     else
                     {
-                        item.Quality++;
+                        coefficient = NormalCoefficient;
                     }
+
+                    coefficient *= -1;
                 }
-                else
-                {
-                    if (item.IsExpired())
-                    {
-                        item.Quality -= DoubleQualityIncrease;
-                    }
-                    else
-                    {
-                        item.Quality--;
-                    }
-                }
+
+                item.Quality -= 1 * coefficient;
 
                 if (item.Quality < MinQuality)
                 {
