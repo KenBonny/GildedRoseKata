@@ -61,6 +61,12 @@ namespace KenBonny.GildedRoseKata
                     item.SellIn--;
                 }
 
+                if (item.IsExpired() &&
+                    item.Is(BackstageConcertPasses))
+                {
+                    item.Quality -= item.Quality;
+                }
+
                 if (item.IsExpired())
                 {
                     if (item.Is(AgedBrie))
@@ -72,18 +78,11 @@ namespace KenBonny.GildedRoseKata
                     }
                     else
                     {
-                        if (item.Is(BackstageConcertPasses))
+                        if (item.HasQuality())
                         {
-                            item.Quality -= item.Quality;
-                        }
-                        else
-                        {
-                            if (item.HasQuality())
+                            if (item.IsNot(Sulfuras))
                             {
-                                if (item.IsNot(Sulfuras))
-                                {
-                                    item.Quality--;
-                                }
+                                item.Quality--;
                             }
                         }
                     }
