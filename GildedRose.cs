@@ -9,6 +9,7 @@ namespace KenBonny.GildedRoseKata
         private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
         private const int TenDays = 10;
         private const int FiveDays = 5;
+        private const int MaxQuality = 50;
         private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
@@ -26,33 +27,21 @@ namespace KenBonny.GildedRoseKata
 
                 if (item.Is(AgedBrie))
                 {
-                    if (item.QualityIsBelowMax())
-                    {
-                        item.Quality++;
-                    }
+                    item.Quality++;
                 } else if (item.Is(BackstageConcertPasses))
                 {
-                    if (item.QualityIsBelowMax())
+                    item.Quality++;
+
+                    if (item.Is(BackstageConcertPasses))
                     {
-                        item.Quality++;
-
-                        if (item.Is(BackstageConcertPasses))
+                        if (item.SellInLessThan(TenDays))
                         {
-                            if (item.SellInLessThan(TenDays))
-                            {
-                                if (item.QualityIsBelowMax())
-                                {
-                                    item.Quality++;
-                                }
-                            }
+                            item.Quality++;
+                        }
 
-                            if (item.SellInLessThan(FiveDays))
-                            {
-                                if (item.QualityIsBelowMax())
-                                {
-                                    item.Quality++;
-                                }
-                            }
+                        if (item.SellInLessThan(FiveDays))
+                        {
+                            item.Quality++;
                         }
                     }
                 }
@@ -73,8 +62,7 @@ namespace KenBonny.GildedRoseKata
                 }
 
                 if (item.IsExpired() &&
-                    item.Is(AgedBrie) &&
-                    item.QualityIsBelowMax())
+                    item.Is(AgedBrie))
                 {
                     item.Quality++;
                 }
@@ -85,14 +73,17 @@ namespace KenBonny.GildedRoseKata
                 {
                     item.Quality--;
                 }
+
+                if (item.Quality > MaxQuality)
+                {
+                    item.Quality = MaxQuality;
+                }
             }
         }
     }
 
     internal static class ItemExtensions
     {
-        public static bool QualityIsBelowMax(this Item item) => item.Quality < 50;
-
         public static bool HasQuality(this Item item) => item.Quality > 0;
 
         public static bool Is(this Item item, string name) => item.Name == name;
