@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace KenBonny.GildedRoseKata
 {
@@ -79,6 +80,11 @@ namespace KenBonny.GildedRoseKata
                 coefficient *= SumCoefficient;
             }
 
+            if (item.IsConjured())
+            {
+                coefficient *= DoubleCoefficient;
+            }
+
             return coefficient;
         }
     }
@@ -94,6 +100,9 @@ namespace KenBonny.GildedRoseKata
         public static bool IsNot(this Item item, string name) => !Is(item, name);
 
         public static bool IsExpired(this Item item) => item.SellIn < 0;
+
+        public static bool IsConjured(this Item item) =>
+            item.Name.Contains("conjured", StringComparison.InvariantCultureIgnoreCase);
 
         public static bool SellInLessThan(this Item item, int days) => item.SellIn < days;
     }
