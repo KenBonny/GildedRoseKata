@@ -32,6 +32,13 @@ namespace KenBonny.GildedRoseKata
 
                 item.SellIn--;
 
+                if (item.Is(BackstageConcertPasses) &&
+                    item.IsExpired())
+                {
+                    item.EmptyQuality();
+                    continue;
+                }
+
                 var coefficient = item.IsExpired() ? DoubleCoefficient : NormalCoefficient;
                 if (item.Is(AgedBrie))
                 {
@@ -39,12 +46,6 @@ namespace KenBonny.GildedRoseKata
                 }
                 else if (item.Is(BackstageConcertPasses))
                 {
-                    if (item.IsExpired())
-                    {
-                        item.EmptyQuality();
-                        continue;
-                    }
-
                     if (item.SellInLessThan(FiveDays))
                     {
                         coefficient = TripleCoefficient;
