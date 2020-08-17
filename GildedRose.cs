@@ -10,6 +10,7 @@ namespace KenBonny.GildedRoseKata
         private const int TenDays = 10;
         private const int FiveDays = 5;
         private const int MaxQuality = 50;
+        private const int MinQuality = 0;
         private const int DoubleQualityIncrease = 2;
         private const int TripleQualityIncrease = 3;
         private readonly IList<Item> _items;
@@ -62,17 +63,18 @@ namespace KenBonny.GildedRoseKata
                 }
                 else
                 {
-                    if (item.HasQuality())
-                    {
-                        item.Quality--;
-                    }
+                    item.Quality--;
                 }
 
                 if (item.IsExpired() &&
-                    item.IsNot(AgedBrie) &&
-                    item.HasQuality())
+                    item.IsNot(AgedBrie))
                 {
                     item.Quality--;
+                }
+
+                if (item.Quality < MinQuality)
+                {
+                    item.Quality = MinQuality;
                 }
 
                 if (item.Quality > MaxQuality)
