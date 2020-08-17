@@ -64,7 +64,7 @@ namespace KenBonny.GildedRoseKata
                 if (item.IsExpired() &&
                     item.Is(BackstageConcertPasses))
                 {
-                    item.Quality -= item.Quality;
+                    item.Quality = 0;
                 }
 
                 if (item.IsExpired())
