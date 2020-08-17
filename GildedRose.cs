@@ -69,22 +69,18 @@ namespace KenBonny.GildedRoseKata
                     item.Quality = 0;
                 }
 
-                if (item.IsExpired())
+                if (item.IsExpired() &&
+                    item.Is(AgedBrie) &&
+                    item.QualityIsBelowMax())
                 {
-                    if (item.Is(AgedBrie))
-                    {
-                        if (item.QualityIsBelowMax())
-                        {
-                            item.Quality++;
-                        }
-                    }
-                    else
-                    {
-                        if (item.HasQuality())
-                        {
-                            item.Quality--;
-                        }
-                    }
+                    item.Quality++;
+                }
+
+                if (item.IsExpired() &&
+                    item.IsNot(AgedBrie) &&
+                    item.HasQuality())
+                {
+                    item.Quality--;
                 }
             }
         }
