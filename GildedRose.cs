@@ -58,9 +58,20 @@ namespace KenBonny.GildedRoseKata
 
                 if (item.SellIn < 0)
                 {
-                    if (item.Name != "Aged Brie")
+                    if (item.Name == "Aged Brie")
                     {
-                        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                        if (item.Quality < 50)
+                        {
+                            item.Quality++;
+                        }
+                    }
+                    else
+                    {
+                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                        {
+                            item.Quality -= item.Quality;
+                        }
+                        else
                         {
                             if (item.Quality > 0)
                             {
@@ -69,17 +80,6 @@ namespace KenBonny.GildedRoseKata
                                     item.Quality--;
                                 }
                             }
-                        }
-                        else
-                        {
-                            item.Quality -= item.Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality++;
                         }
                     }
                 }
