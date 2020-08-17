@@ -10,6 +10,8 @@ namespace KenBonny.GildedRoseKata
         private const int TenDays = 10;
         private const int FiveDays = 5;
         private const int MaxQuality = 50;
+        private const int DoubleQualityIncrease = 2;
+        private const int TripleQualityIncrease = 3;
         private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
@@ -31,22 +33,24 @@ namespace KenBonny.GildedRoseKata
                 {
                     if (item.IsExpired())
                     {
-                        item.Quality += 2;
+                        item.Quality += DoubleQualityIncrease;
                     }
                     else
                     {
                         item.Quality++;
                     }
-                } else if (item.Is(BackstageConcertPasses))
+                }
+                else if (item.Is(BackstageConcertPasses))
                 {
-                    item.Quality++;
-
-                    if (item.SellInLessThan(TenDays))
-                    {
-                        item.Quality++;
-                    }
-
                     if (item.SellInLessThan(FiveDays))
+                    {
+                        item.Quality += TripleQualityIncrease;
+                    }
+                    else if (item.SellInLessThan(TenDays))
+                    {
+                        item.Quality += DoubleQualityIncrease;
+                    }
+                    else
                     {
                         item.Quality++;
                     }
