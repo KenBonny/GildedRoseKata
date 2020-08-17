@@ -91,13 +91,9 @@ namespace KenBonny.GildedRoseKata
 
     internal static class ItemExtensions
     {
-        public static bool HasQuality(this Item item) => item.Quality > 0;
-
         public static void EmptyQuality(this Item item) => item.Quality = 0;
 
         public static bool Is(this Item item, string name) => item.Name == name;
-
-        public static bool IsNot(this Item item, string name) => !Is(item, name);
 
         public static bool IsExpired(this Item item) => item.SellIn < 0;
 
