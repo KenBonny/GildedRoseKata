@@ -24,8 +24,15 @@ namespace KenBonny.GildedRoseKata
                     continue;
                 }
 
-                if (item.Is(AgedBrie) ||
-                    item.Is(BackstageConcertPasses))
+                if (item.Is(AgedBrie))
+                {
+                    if (item.QualityIsBelowMax())
+                    {
+                        item.Quality++;
+                    }
+                }
+
+                if (item.Is(BackstageConcertPasses))
                 {
                     if (item.QualityIsBelowMax())
                     {
