@@ -39,29 +39,7 @@ namespace KenBonny.GildedRoseKata
                     continue;
                 }
 
-                var coefficient = item.IsExpired() ? DoubleCoefficient : NormalCoefficient;
-                if (item.Is(AgedBrie))
-                {
-                    coefficient *= SumCoefficient;
-                }
-                else if (item.Is(BackstageConcertPasses))
-                {
-                    if (item.SellInLessThan(FiveDays))
-                    {
-                        coefficient = TripleCoefficient;
-                    }
-                    else if (item.SellInLessThan(TenDays))
-                    {
-                        coefficient = DoubleCoefficient;
-                    }
-                    else
-                    {
-                        coefficient = NormalCoefficient;
-                    }
-
-                    coefficient *= SumCoefficient;
-                }
-
+                var coefficient = GetCoefficient(item);
                 item.Quality -= 1 * coefficient;
 
                 if (item.Quality < MinQuality)
@@ -74,6 +52,34 @@ namespace KenBonny.GildedRoseKata
                     item.Quality = MaxQuality;
                 }
             }
+        }
+
+        private static int GetCoefficient(Item item)
+        {
+            var coefficient = item.IsExpired() ? DoubleCoefficient : NormalCoefficient;
+            if (item.Is(AgedBrie))
+            {
+                coefficient *= SumCoefficient;
+            }
+            else if (item.Is(BackstageConcertPasses))
+            {
+                if (item.SellInLessThan(FiveDays))
+                {
+                    coefficient = TripleCoefficient;
+                }
+                else if (item.SellInLessThan(TenDays))
+                {
+                    coefficient = DoubleCoefficient;
+                }
+                else
+                {
+                    coefficient = NormalCoefficient;
+                }
+
+                coefficient *= SumCoefficient;
+            }
+
+            return coefficient;
         }
     }
 
