@@ -11,7 +11,7 @@ namespace KenBonny.GildedRoseKata
             IList<Item> items = new List<Item> { new Item { Name = "Conjured cake", SellIn = 5, Quality = 10 } };
             GildedRose app = new GildedRose(items);
             app.UpdateQuality();
-            Assert.Equal("fixme", items[0].Name);
+            Assert.Equal(8, items[0].Quality);
         }
     }
 }
