@@ -14,6 +14,7 @@ namespace KenBonny.GildedRoseKata
         private const int NormalCoefficient = 1;
         private const int DoubleCoefficient = 2;
         private const int TripleCoefficient = 3;
+        private const int SumCoefficient = -1;
         private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
@@ -34,7 +35,7 @@ namespace KenBonny.GildedRoseKata
                 var coefficient = item.IsExpired() ? DoubleCoefficient : NormalCoefficient;
                 if (item.Is(AgedBrie))
                 {
-                    coefficient *= -1;
+                    coefficient *= SumCoefficient;
                 }
                 else if (item.Is(BackstageConcertPasses))
                 {
@@ -57,7 +58,7 @@ namespace KenBonny.GildedRoseKata
                         coefficient = NormalCoefficient;
                     }
 
-                    coefficient *= -1;
+                    coefficient *= SumCoefficient;
                 }
 
                 item.Quality -= 1 * coefficient;
