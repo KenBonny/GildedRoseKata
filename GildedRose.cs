@@ -16,7 +16,7 @@ namespace KenBonny.GildedRoseKata
             {
                 if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (item.Quality > 0)
+                    if (item.HasQuality())
                     {
                         if (item.Name != "Sulfuras, Hand of Ragnaros")
                         {
@@ -26,7 +26,7 @@ namespace KenBonny.GildedRoseKata
                 }
                 else
                 {
-                    if (item.Quality < 50)
+                    if (item.QualityIsBelowMax())
                     {
                         item.Quality++;
 
@@ -34,7 +34,7 @@ namespace KenBonny.GildedRoseKata
                         {
                             if (item.SellIn < 11)
                             {
-                                if (item.Quality < 50)
+                                if (item.QualityIsBelowMax())
                                 {
                                     item.Quality++;
                                 }
@@ -42,7 +42,7 @@ namespace KenBonny.GildedRoseKata
 
                             if (item.SellIn < 6)
                             {
-                                if (item.Quality < 50)
+                                if (item.QualityIsBelowMax())
                                 {
                                     item.Quality++;
                                 }
@@ -60,7 +60,7 @@ namespace KenBonny.GildedRoseKata
                 {
                     if (item.Name == "Aged Brie")
                     {
-                        if (item.Quality < 50)
+                        if (item.QualityIsBelowMax())
                         {
                             item.Quality++;
                         }
@@ -73,7 +73,7 @@ namespace KenBonny.GildedRoseKata
                         }
                         else
                         {
-                            if (item.Quality > 0)
+                            if (item.HasQuality())
                             {
                                 if (item.Name != "Sulfuras, Hand of Ragnaros")
                                 {
@@ -85,5 +85,12 @@ namespace KenBonny.GildedRoseKata
                 }
             }
         }
+    }
+
+    internal static class ItemExtensions
+    {
+        public static bool QualityIsBelowMax(this Item item) => item.Quality < 50;
+
+        public static bool HasQuality(this Item item) => item.Quality > 0;
     }
 }
