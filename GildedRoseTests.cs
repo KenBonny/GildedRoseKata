@@ -16,7 +16,7 @@ namespace KenBonny.GildedRoseKata
         [Fact]
         public void ExpiredConjuredItemsDegradeTwiceAsFast()
         {
-            var expiredConjuredItem = new Item { Name = "Conjured cake", SellIn = -1, Quality = 10 };
+            var expiredConjuredItem = new Item { Name = "Expired conjured cake", SellIn = -1, Quality = 10 };
             UpdateQuality(expiredConjuredItem);
             Assert.Equal(6, expiredConjuredItem.Quality);
         }
