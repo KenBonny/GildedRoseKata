@@ -40,7 +40,7 @@ namespace KenBonny.GildedRoseKata
                 {
                     if (item.IsExpired())
                     {
-                        item.Quality = 0;
+                        item.EmptyQuality();
                         continue;
                     }
 
@@ -78,6 +78,8 @@ namespace KenBonny.GildedRoseKata
     internal static class ItemExtensions
     {
         public static bool HasQuality(this Item item) => item.Quality > 0;
+
+        public static void EmptyQuality(this Item item) => item.Quality = 0;
 
         public static bool Is(this Item item, string name) => item.Name == name;
 
