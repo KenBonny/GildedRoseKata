@@ -10,8 +10,6 @@ namespace KenBonny.GildedRoseKata
         private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
         private const int TenDays = 10;
         private const int FiveDays = 5;
-        private const int MaxQuality = 50;
-        private const int MinQuality = 0;
         private const int NormalCoefficient = 1;
         private const int DoubleCoefficient = 2;
         private const int TripleCoefficient = 3;
@@ -43,14 +41,14 @@ namespace KenBonny.GildedRoseKata
                 var coefficient = GetCoefficient(item);
                 item.Quality -= 1 * coefficient;
 
-                if (item.Quality < MinQuality)
+                if (item.IsBelowMinQuality())
                 {
-                    item.Quality = MinQuality;
+                    item.EmptyQuality();
                 }
 
-                if (item.Quality > MaxQuality)
+                if (item.IsOverMaxQuality())
                 {
-                    item.Quality = MaxQuality;
+                    item.MaxQuality();
                 }
             }
         }
@@ -91,9 +89,17 @@ namespace KenBonny.GildedRoseKata
 
     internal static class ItemExtensions
     {
-        public static void EmptyQuality(this Item item) => item.Quality = 0;
+        private const int Max = 50;
+        private const int Min = 0;
+        public static void EmptyQuality(this Item item) => item.Quality = Min;
+
+        public static void MaxQuality(this Item item) => item.Quality = Max;
 
         public static bool Is(this Item item, string name) => item.Name == name;
+
+        public static bool IsBelowMinQuality(this Item item) => item.Quality < Min;
+
+        public static bool IsOverMaxQuality(this Item item) => item.Quality > Max;
 
         public static bool IsExpired(this Item item) => item.SellIn < 0;
 
