@@ -4,10 +4,10 @@ namespace KenBonny.GildedRoseKata
 {
     public class GildedRose
     {
-        IList<Item> _items;
+        private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
-            this._items = items;
+            _items = items;
         }
 
         public void UpdateQuality()
