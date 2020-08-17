@@ -7,6 +7,8 @@ namespace KenBonny.GildedRoseKata
         private const string AgedBrie = "Aged Brie";
         private const string BackstageConcertPasses = "Backstage passes to a TAFKAL80ETC concert";
         private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
+        private const int TenDays = 10;
+        private const int FiveDays = 5;
         private readonly IList<Item> _items;
         public GildedRose(IList<Item> items)
         {
@@ -35,7 +37,7 @@ namespace KenBonny.GildedRoseKata
 
                         if (item.Is(BackstageConcertPasses))
                         {
-                            if (item.SellIn <= 10)
+                            if (item.SellInLessThan(TenDays))
                             {
                                 if (item.QualityIsBelowMax())
                                 {
@@ -43,7 +45,7 @@ namespace KenBonny.GildedRoseKata
                                 }
                             }
 
-                            if (item.SellIn <= 5)
+                            if (item.SellInLessThan(FiveDays))
                             {
                                 if (item.QualityIsBelowMax())
                                 {
@@ -59,7 +61,7 @@ namespace KenBonny.GildedRoseKata
                     item.SellIn--;
                 }
 
-                if (item.SellIn < 0)
+                if (item.IsExpired())
                 {
                     if (item.Is(AgedBrie))
                     {
@@ -99,5 +101,9 @@ namespace KenBonny.GildedRoseKata
         public static bool Is(this Item item, string name) => item.Name == name;
 
         public static bool IsNot(this Item item, string name) => !Is(item, name);
+
+        public static bool IsExpired(this Item item) => item.SellIn < 0;
+
+        public static bool SellInLessThan(this Item item, int days) => item.SellIn <= days;
     }
 }
