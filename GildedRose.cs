@@ -25,6 +25,8 @@ namespace KenBonny.GildedRoseKata
                     continue;
                 }
 
+                item.SellIn--;
+
                 if (item.Is(AgedBrie))
                 {
                     item.Quality++;
@@ -52,8 +54,6 @@ namespace KenBonny.GildedRoseKata
                         item.Quality--;
                     }
                 }
-
-                item.SellIn--;
 
                 if (item.IsExpired() &&
                     item.Is(BackstageConcertPasses))
@@ -92,6 +92,6 @@ namespace KenBonny.GildedRoseKata
 
         public static bool IsExpired(this Item item) => item.SellIn < 0;
 
-        public static bool SellInLessThan(this Item item, int days) => item.SellIn <= days;
+        public static bool SellInLessThan(this Item item, int days) => item.SellIn < days;
     }
 }
